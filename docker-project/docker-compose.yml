@@ -51,26 +51,7 @@ services:
     networks:
       - app-net
 
-  # ── Reverse Proxy ──────────────────────────────────────────────────────────
-  nginx:
-    image: nginx:alpine
-    restart: always
-    depends_on:
-      - wordpress
-    ports:
-      # HTTP (redirect to HTTPS in production — see nginx/nginx.conf bonus section)
-      - "80:80"
-      # HTTPS (requires TLS certificate — see bonus challenge)
-      - "443:443"
-    volumes:
-      # Mount custom Nginx config
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      # Mount TLS certs directory (needed for HTTPS bonus challenge)
-      - ./nginx/certs:/etc/nginx/certs:ro
-    networks:
-      - app-net
 
-# ── Volumes ────────────────────────────────────────────────────────────────
 volumes:
   # Named volume for MySQL data persistence
   db_data:
